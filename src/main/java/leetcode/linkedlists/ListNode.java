@@ -1,6 +1,10 @@
 package leetcode.linkedlists;
 
-import lombok.val;
+import org.junit.jupiter.api.Assertions;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ListNode {
     int val;
@@ -13,7 +17,6 @@ public class ListNode {
     public String toString() {
         return "ListNode{" +
                 "val=" + val +
-                ", next=" + next +
                 '}';
     }
 
@@ -30,5 +33,15 @@ public class ListNode {
             cursor = cursor.next;
         }
         return head;
+    }
+
+    public static void validateList(ListNode head, int... values) {
+        var cursor = head;
+        for (int value : values) {
+            assertNotNull(cursor);
+            assertEquals(value, cursor.val);
+            cursor = cursor.next;
+        }
+        assertNull(cursor);
     }
 }
