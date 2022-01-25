@@ -69,10 +69,67 @@ public class MaximalSquare {
         return dp[i][j];
     }
 
+    public int maximalSquareWithDPTake2(char[][] matrix) {
+        int M = matrix.length;
+        int N = matrix[0].length;
+        int[][] dp = new int[M+1][N+1];
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                if (matrix[i][j] == '0')
+                    continue;
+                dp[i+1][j+1] = 1;
+            }
+        }
+        var dim = 0;
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                if (matrix[i][j] == '0')
+                    continue;
+                dp[i+1][j+1] = Math.min(dp[i][j], Math.min(dp[i][j+1], dp[i+1][j])) + 1;
+                dim = Math.max(dim, dp[i+1][j+1]);
+            }
+        }
+        return dim * dim;
+    }
+
+    @Test
+    void test0() {
+        var input = new char[][] {{'1'}};
+        assertEquals(1, maximalSquare(input));
+        assertEquals(1, maximalSquareWithDPTake2(input));
+
+        input = new char[][] {{'1', '1'}, {'1', '1'}};
+        assertEquals(4, maximalSquare(input));
+        assertEquals(4, maximalSquareWithDPTake2(input));
+
+        input = new char[][] {{'0','0','0'}, {'0', '1', '1'}, {'0', '1', '1'}};
+        assertEquals(4, maximalSquare(input));
+        assertEquals(4, maximalSquareWithDPTake2(input));
+
+        input = new char[][] {{'1','1','1'}, {'0', '1', '1'}, {'0', '1', '1'}};
+        assertEquals(4, maximalSquare(input));
+        assertEquals(4, maximalSquareWithDPTake2(input));
+
+        input = new char[][]
+                {{'0','1', '1'},
+                {'0', '1', '1'},
+                {'0', '1', '1'}};
+        assertEquals(4, maximalSquare(input));
+        assertEquals(4, maximalSquareWithDPTake2(input));
+
+        input = new char[][]
+                {{'1','1', '1'},
+                {'1', '1', '1'},
+                {'0', '0', '0'}};
+        assertEquals(4, maximalSquare(input));
+        assertEquals(4, maximalSquareWithDPTake2(input));
+    }
+
     @Test
     void test1() {
         var input = new char[][] {{'1','0','1','0','0'},{'1','0','1','1','1'},{'1','1','1','1','1'},{'1','0','0','1','0'}};
         assertEquals(4, maximalSquare(input));
+        assertEquals(4, maximalSquareWithDPTake2(input));
     }
 
     @Test
@@ -85,5 +142,6 @@ public class MaximalSquare {
                 {'0','1','1','1','1','0','0','0'}
         };
         assertEquals(16, maximalSquare(input));
+        assertEquals(16, maximalSquareWithDPTake2(input));
     }
 }
