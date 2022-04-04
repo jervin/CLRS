@@ -38,7 +38,7 @@ public class ListNode {
     public static void validateList(ListNode head, int... values) {
         var cursor = head;
         for (int value : values) {
-            assertNotNull(cursor);
+            assertNotNull(cursor, "value: " + value);
             assertEquals(value, cursor.val);
             cursor = cursor.next;
         }
