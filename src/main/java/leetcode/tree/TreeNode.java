@@ -60,4 +60,19 @@ public class TreeNode {
         createTree(root, tree, new int[] {1}, 1, map);
         return root;
     }
+
+    public static boolean compare(TreeNode left, TreeNode right) {
+        System.out.println("TreeNode.compare() : left: " + left + ", right: " + right);
+        if (left == null && right != null || left != null && right == null) {
+            System.out.println("TreeNode.compare(): returning false");
+            return false;
+        }
+        if (left == right)
+            return true;
+        if (left.val != right.val) {
+            System.out.println("TreeNode.compare(): returning false");
+            return false;
+        }
+        return compare(left.left, right.left) && compare(left.right, right.right);
+    }
 }
