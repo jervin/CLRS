@@ -12,6 +12,7 @@ import java.util.Map;
 public class TreeNode {
     int val;
     TreeNode left, right;
+    TreeNode next; // For breadth first traversal
     TreeNode() {}
     TreeNode(int value) { this.val = value; }
     TreeNode(int value, TreeNode left, TreeNode right) {
